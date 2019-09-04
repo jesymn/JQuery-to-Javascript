@@ -19,6 +19,11 @@ const emptyChildren = function(parent) {
         }
     }
 }
+// .empty() alternative, same thing -------------
+const accContainerMobile = document.querySelectorAll(".accordion");
+while (accContainerMobile.firstChild) {
+    accContainerMobile.removeChild(accContainerMobile.firstChild);
+}
 
 /*---------------------------------------------------------/
 /hide and show. Kahit anong valid DOM selector should work /
@@ -56,7 +61,9 @@ for (let i = 0; i < classes.length; i++) {
 /* -- DATA STRUCTURES --- */
 // ITERATING THROUGH DATA STRUCTURES (o ung nagfofor loop ka ganun pero hindi direct na for)
 // jQuery:
-$("Any valid DOM selector").each(function(){})
+$("Any valid DOM selector").each(function(){
+    // handle each item  here
+})
 
 // vanilla
 // through a variable or constant
@@ -65,3 +72,13 @@ domSelector.forEach((item) => {
     // handle each item here
     // ung 'item' is the current item iteration, kind of like domSelector[i] pag regular for loop
 });
+
+/* ---- Getting or manipulating HTML --------*/
+// mga append append
+// jQUery
+$("#accordion").append("<div class='card my-3 text-center noData'><h1>You have no Tasks. Do something today!</h1></div>");
+
+// vanilla, ung html naka constant kasi minsan masyadong mahaba na bago ilagay sa parenthesis
+const accordionEmpty = document.getElementById("accordion");
+const noData = "<div class='card my-3 text-center noData'><h1>You have no Tasks. Do something today!</h1></div>";
+accordionEmpty.insertAdjacentHTML("beforeend", noData);
