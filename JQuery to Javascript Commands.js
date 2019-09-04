@@ -83,7 +83,7 @@ const accordionEmpty = document.getElementById("accordion");
 const noData = "<div class='card my-3 text-center noData'><h1>You have no Tasks. Do something today!</h1></div>";
 accordionEmpty.insertAdjacentHTML("beforeend", noData);
 
-//drop and drag
+//drag and drop
 example:
 const dragLeave = function dragLeave() {
     this.classList.remove("draggedOver");
