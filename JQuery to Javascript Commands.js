@@ -82,3 +82,60 @@ $("#accordion").append("<div class='card my-3 text-center noData'><h1>You have n
 const accordionEmpty = document.getElementById("accordion");
 const noData = "<div class='card my-3 text-center noData'><h1>You have no Tasks. Do something today!</h1></div>";
 accordionEmpty.insertAdjacentHTML("beforeend", noData);
+
+//drop and drag
+example:
+const dragLeave = function dragLeave() {
+    this.classList.remove("draggedOver");
+};
+
+const drop = function drop(e) {
+    this.classList.remove("draggedOver");
+
+    const selectC = document.getElementsByClassName("selectedChild");
+    document.getElementById(`${this.getAttribute("id")}`).appendChild(selectC[0]);
+};
+
+const dragEnd = function dragEnd(username) {
+    const elem = document.getElementsByClassName("selectedChild");
+
+    for (let i = 0; i < elem.length; i++) {
+        const movedTask = elem[i].getAttribute("parent-id");
+        const parentName = elem[i].parentElement.getAttribute("id");
+        const userID = document.getElementById(`${parentName}`).parentNode.getAttribute("id");
+
+        if (movedTask !== parentName) {
+            const taskId = elem[i].getAttribute("task-id");
+            const myTableEdit = new ECP.EC_TableEdit("Tasks");
+
+            elem[i].setAttribute("parent-id", parentName);
+            elem[i].setAttribute("class", `child bg-white text-dark ${parentName}`);
+
+            myTableEdit.EditRecord(taskId);
+            myTableEdit.UpdateRecord("AssignToUserID", userID);
+
+            myTableEdit.SaveRecord().then(() => {
+                getToast("success", taskId);
+            }).catch(() => {
+                getToast("failed", taskId);
+            });
+        }
+    }
+};
+
+const dragDropParents = function dragDropParents(parents) {
+    for (let i = 0; i < parents.length; i++) {
+        parents[i].addEventListener("dragover", dragOver);
+        parents[i].addEventListener("dragleave", dragLeave);
+        parents[i].addEventListener("drop", drop);
+    }
+};
+
+const dragDropChildren = function dragDropChildren(children) {
+    for (let i = 0; i < children.length; i++) {
+        children[i].addEventListener("dragstart", dragStart);
+        children[i].addEventListener("dragend", dragEnd);
+    }
+};
+//end of drag and drop
+
