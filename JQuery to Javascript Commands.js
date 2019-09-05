@@ -1,5 +1,41 @@
 // ------------- JQUERY functions to JAVASCRIPT (ALPHABETICAL ORDER) ---------------
+// $(document).ready() 
+function ready(fn) {
+    if (document.readyState !== 'loading') {
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
 
+ready(() => {
+    document.getElementById('getInvoices').addEventListener('click', () => {
+        getInvoices();
+    });
+});
+
+// $.getJSON w/ promise
+const requestJSON = function requestJSON(url) {
+    return new Promise(function(resolve, reject) {
+        let request = new XMLHttpRequest();
+        request.open('GET', url, true);
+
+        request.onload = function() {
+            if (this.status >= 200 && this.status < 400) {
+                let data = JSON.parse(this.response);
+                resolve(data);
+            } else {
+                reject(err);
+            }
+        };
+
+        request.onerror = function() {
+            reject(err);
+        };
+
+        request.send();
+    });
+}
 
 //  .addClass() ------------------------ 
 //  IDS
@@ -14,16 +50,27 @@ for (let i = 0; i < classes.length; i++) {
 // .empty() ------------------------
 const emptyChildren = function(parent) {
     for (let i = 0; i < parent.length; i++) {
-        while (parent[0].firstChild) {
-            parent[0].removeChild(parent[0].firstChild);
+        while (parent[i].firstChild) {
+            parent[i].removeChild(parent[i].firstChild);
         }
     }
 }
-// .empty() alternative, same thing -------------
+// OR 
+// IDs 
+document.getElementById("id").innerHTML = "";
+
+// CLASSES 
+const classes = document.getElementsByClassName("class").innerHTML = "";
+for(let i = 0; i < classes.length; i++) {
+    classes[i].innerHTML = "";
+}
+
+// OR
 const accContainerMobile = document.querySelectorAll(".accordion");
 while (accContainerMobile.firstChild) {
     accContainerMobile.removeChild(accContainerMobile.firstChild);
 }
+
 
 /*---------------------------------------------------------/
 /hide and show. Kahit anong valid DOM selector should work /
