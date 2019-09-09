@@ -105,7 +105,9 @@ for (let i = 0; i < classes.length; i++) {
     classes[i].style.display = "block";
 }
 
-/* -- DATA STRUCTURES --- */
+/*-------------------------/
+/ -- DATA STRUCTURES ---- /
+/------------------------*/
 // ITERATING THROUGH DATA STRUCTURES (o ung nagfofor loop ka ganun pero hindi direct na for)
 // jQuery:
 $("Any valid DOM selector").each(function(){
@@ -129,6 +131,18 @@ $("#accordion").append("<div class='card my-3 text-center noData'><h1>You have n
 const accordionEmpty = document.getElementById("accordion");
 const noData = "<div class='card my-3 text-center noData'><h1>You have no Tasks. Do something today!</h1></div>";
 accordionEmpty.insertAdjacentHTML("beforeend", noData);
+
+/*------- Getting the index or value sa selected option in a <select> block -- */
+// jQuery
+$("#requestGeneratedVia select option:selected");
+
+// javascript
+document.getElementById("requestGeneratedVia").options[document.getElementById("requestGeneratedVia").selectedIndex]
+// --> to get the value, just add .value or .textContent depending on what you need
+// END of <select>
+
+
+
 
 //drag and drop
 example:
